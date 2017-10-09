@@ -1,6 +1,8 @@
 ///<reference path="../../headers/common.d.ts" />
 
-import {Variable, assignModelProperties, variableTypes} from './variable';
+import _ from 'lodash';
+import {Variable, containsVariable, assignModelProperties, variableTypes} from './variable';
+import {VariableSrv} from './variable_srv';
 
 export class ConstantVariable implements Variable {
   query: string;
@@ -38,7 +40,7 @@ export class ConstantVariable implements Variable {
   }
 
   dependsOn(variable) {
-    return false;
+    return containsVariable(this.options[0], variable.name);
   }
 
   setValueFromUrl(urlValue) {
